@@ -40,6 +40,8 @@ public class PhysicsEngine {
 	private int velocityInteractions = 6;
 	private int positionInteractions = 6;
 
+	private static final int DEFAULT_FRAME_RATE = 60;
+
 	/**
 	 * Frame rate used with the internal frame thread. This is provided in the constructor.
 	 * Maybe in the future this will be able to change, for now we have it as a final field
@@ -121,6 +123,13 @@ public class PhysicsEngine {
 	 */
 	public PhysicsEngine(int frameRate) {
 		this.frameRate = frameRate;
+	}
+
+	/**
+	 * Alias of {@link #PhysicsEngine(int)} using {@link #DEFAULT_FRAME_RATE} as parameter
+	 */
+	public PhysicsEngine() {
+		this(DEFAULT_FRAME_RATE);
 	}
 
 	/**
