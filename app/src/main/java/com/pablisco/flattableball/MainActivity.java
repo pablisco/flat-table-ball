@@ -48,8 +48,7 @@ public class MainActivity extends Activity {
 	 */
 	private void chooseTeam(GameActivity.Team team) {
 		Intent intent = new Intent(this, GameActivity.class);
-		Bundle extras = new Bundle();
-		extras.putSerializable(EXTRA_TEAM, team);
+		intent.putExtra(EXTRA_TEAM, team);
 		startActivity(intent);
 	}
 
