@@ -9,6 +9,9 @@ import android.text.style.ForegroundColorSpan;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.pablisco.physics.PhysicsEngine;
+import com.pablisco.physics.ui.PhysicsView;
+
 import static android.graphics.Color.BLUE;
 import static android.graphics.Color.RED;
 import static android.view.Window.FEATURE_NO_TITLE;
@@ -26,6 +29,7 @@ public class GameActivity extends Activity {
 	 * Use to attach a team to the extras used to launch this activity
 	 */
 	public static final String EXTRA_TEAM = "com.pablisco.flattableball;EXTRA_TEAM";
+	private PhysicsEngine physicsEngine;
 
 	/**
 	 * This enum describes the two possible teams that the user can choose
@@ -48,6 +52,8 @@ public class GameActivity extends Activity {
 
 	private TextView ballsView;
 
+	private PhysicsView physicsView;
+
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -58,6 +64,9 @@ public class GameActivity extends Activity {
 		// gather views
 		scoreView = (TextView) findViewById(R.id.score_view);
 		ballsView = (TextView) findViewById(R.id.balls_view);
+		physicsView = (PhysicsView) findViewById(R.id.physics_view);
+		physicsEngine = physicsView.getPhysicsEngine();
+
 		// process extras
 		final Bundle extras = getIntent().getExtras();
 		// make sure we have a team
@@ -73,6 +82,13 @@ public class GameActivity extends Activity {
 	protected void onResume() {
 		super.onResume();
 		updateLabels();
+		physicsEngine.start();
+	}
+
+	@Override
+	protected void onPause() {
+		super.onPause();
+		physicsEngine.stop();
 	}
 
 	/**
