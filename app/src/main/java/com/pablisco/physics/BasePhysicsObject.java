@@ -39,6 +39,11 @@ public abstract class BasePhysicsObject<S extends BasePhysicsObject<S>> implemen
 
 	private Vec2 relativePosition;
 
+	/**
+	 * Defines whether we what the object to collide with other objects
+	 */
+	private boolean hollow = false;
+
 	{
 		paint.setColor(Color.WHITE);
 	}
@@ -77,6 +82,11 @@ public abstract class BasePhysicsObject<S extends BasePhysicsObject<S>> implemen
 
 	public S setType(BodyType type) {
 		this.bodyType = type;
+		return self();
+	}
+
+	public S setHollow(boolean hollow) {
+		this.hollow = hollow;
 		return self();
 	}
 
@@ -205,6 +215,9 @@ public abstract class BasePhysicsObject<S extends BasePhysicsObject<S>> implemen
 		fixtureDef.density = density;
 		fixtureDef.friction = friction;
 		fixtureDef.restitution = restitution;
+		if (hollow) {
+			fixtureDef.filter.groupIndex = -1;
+		}
 		return fixtureDef;
 	}
 
